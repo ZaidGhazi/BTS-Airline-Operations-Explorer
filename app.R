@@ -37,11 +37,21 @@ library(scales)
 HAIKU_MODEL <- "claude-haiku-4-5"
 
 `%||%` <- function(x, y) {
-  if (is.null(x) || length(x) == 0 || all(is.na(x)) || !nzchar(as.character(x)[1])) {
-    y
-  } else {
-    x
+  if (is.null(x)) {
+    return(y)
   }
+
+  # QueryChat returns a zero-row data frame when a valid filter has no matches.
+  # Preserve that empty result instead of falling back to the full dataset.
+  if (is.data.frame(x)) {
+    return(x)
+  }
+
+  if (length(x) == 0 || all(is.na(x)) || !nzchar(as.character(x)[1])) {
+    return(y)
+  }
+
+  x
 }
 
 data_path <- file.path("data", "processed", "bts_airline_flights_2023_2025_sample.csv")
