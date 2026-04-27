@@ -1,0 +1,12 @@
+.Renviron
+.Rhistory
+.RData
+.git/
+repo-git/
+.Rproj.user/
+ui-check*.png
+shiny-test-*.log
+data/raw/*.zip
+evaluation/vitals/logs/*.json
+evaluation/vitals/plots/*.png
+evaluation/vitals/results/*.csv
