@@ -6,7 +6,7 @@
 
 required_packages <- c(
   "shiny", "bslib", "querychat", "ellmer", "shinychat",
-  "ggplot2", "dplyr", "readr", "tidyr", "scales"
+  "ggplot2", "dplyr", "readr", "tidyr", "scales", "duckdb"
 )
 
 missing_packages <- required_packages[
@@ -14,11 +14,25 @@ missing_packages <- required_packages[
 ]
 
 if (length(missing_packages) > 0) {
+  message(
+    "Installing missing package(s): ",
+    paste(missing_packages, collapse = ", ")
+  )
+  utils::install.packages(missing_packages, repos = "https://cloud.r-project.org")
+}
+
+still_missing_packages <- required_packages[
+  !vapply(required_packages, requireNamespace, logical(1), quietly = TRUE)
+]
+
+if (length(still_missing_packages) > 0) {
   stop(
-    "Install required packages before running the app:\n",
+    "These required package(s) could not be installed or loaded automatically: ",
+    paste(still_missing_packages, collapse = ", "),
+    "\nInstall them manually with:\n",
     "install.packages(c(",
-    paste(sprintf('"%s"', missing_packages), collapse = ", "),
-    ', "duckdb"))',
+    paste(sprintf('"%s"', still_missing_packages), collapse = ", "),
+    '), repos = "https://cloud.r-project.org")',
     call. = FALSE
   )
 }
