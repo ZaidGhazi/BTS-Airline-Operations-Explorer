@@ -49,11 +49,81 @@ greeting_path <- "greeting.md"
 dictionary_path <- file.path("data", "bts_data_dictionary.md")
 querychat_instructions_path <- "querychat_instructions.md"
 
-if (!file.exists(data_path)) {
-  stop(
-    "Missing processed data at ", data_path, ". ",
-    "Run source('R/prep_bts_data.R'); prep_bts_data() first.",
-    call. = FALSE
+startup_warnings <- character()
+
+# The normal workflow is to clone/download the full repository, which already
+# includes these companion files. This fallback lets a single downloaded app.R
+# fetch the exact same processed data and QueryChat context from GitHub.
+github_raw_base <- "https://raw.githubusercontent.com/ZaidGhazi/BTS-Airline-Operations-Explorer/main"
+github_fallback_files <- c(
+  data_path = paste0(github_raw_base, "/data/processed/bts_airline_flights_2023_2025_sample.csv"),
+  greeting_path = paste0(github_raw_base, "/greeting.md"),
+  dictionary_path = paste0(github_raw_base, "/data/bts_data_dictionary.md"),
+  querychat_instructions_path = paste0(github_raw_base, "/querychat_instructions.md")
+)
+names(github_fallback_files) <- c(
+  data_path,
+  greeting_path,
+  dictionary_path,
+  querychat_instructions_path
+)
+
+download_missing_companion_file <- function(path, url) {
+  if (file.exists(path)) {
+    return(FALSE)
+  }
+
+  target_dir <- dirname(path)
+  if (!dir.exists(target_dir)) {
+    dir.create(target_dir, recursive = TRUE, showWarnings = FALSE)
+  }
+
+  message("Missing ", path, "; downloading from ", url)
+
+  tryCatch(
+    {
+      status <- utils::download.file(url, destfile = path, mode = "wb", quiet = TRUE)
+      if (!identical(status, 0L)) {
+        stop("download.file returned status ", status, call. = FALSE)
+      }
+    },
+    error = function(e) {
+      if (file.exists(path)) {
+        file.remove(path)
+      }
+      stop(
+        "Could not download missing file ", path, " from GitHub. ",
+        "Download the full repository or check your internet connection. ",
+        "Original error: ", conditionMessage(e),
+        call. = FALSE
+      )
+    }
+  )
+
+  if (!file.exists(path) || is.na(file.info(path)$size) || file.info(path)$size == 0) {
+    stop(
+      "The downloaded file was empty or unavailable: ", path, ". ",
+      "Download the full repository or rerun after checking the GitHub URL.",
+      call. = FALSE
+    )
+  }
+
+  TRUE
+}
+
+downloaded_fallback_files <- vapply(
+  names(github_fallback_files),
+  function(path) download_missing_companion_file(path, github_fallback_files[[path]]),
+  logical(1)
+)
+
+if (any(downloaded_fallback_files)) {
+  startup_warnings <- c(
+    startup_warnings,
+    paste(
+      "Downloaded missing companion file(s) from GitHub:",
+      paste(names(downloaded_fallback_files)[downloaded_fallback_files], collapse = ", ")
+    )
   )
 }
 
@@ -89,7 +159,6 @@ if (length(missing_base_cols) > 0) {
   )
 }
 
-startup_warnings <- character()
 missing_cause_cols <- setdiff(cause_cols, names(raw_flights))
 if (length(missing_cause_cols) > 0) {
   startup_warnings <- c(

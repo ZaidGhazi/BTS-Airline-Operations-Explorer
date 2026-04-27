@@ -133,3 +133,14 @@ shiny::runApp()
 ```
 
 The app should be run locally from source.
+
+## Single-File Fallback
+
+The recommended workflow is to clone or download the full repository so the processed CSV and QueryChat markdown files are already present. If only `app.R` is downloaded, the app will try to fetch the missing processed dataset and context files from this GitHub repository on first run:
+
+- `data/processed/bts_airline_flights_2023_2025_sample.csv`
+- `greeting.md`
+- `data/bts_data_dictionary.md`
+- `querychat_instructions.md`
+
+That fallback requires internet access for the first run. The Anthropic API key is still required for QueryChat and plot interpretation.
