@@ -19,7 +19,7 @@ source("R/evaluate_vitals.R")
 run_vitals_evaluation()
 ```
 
-The script uses the five cases above as `evaluation/vitals/vitals_cases.csv`, generates a representative plot image for each case, asks the Claude Haiku interpretation coach to respond, and grades the response with `vitals::model_graded_qa()` using Claude Haiku as the scorer. The app itself lets the user recreate similar views with X, Y, color, geom, and summary controls. The target rubrics check that responses:
+The script uses the five cases above as `evaluation/vitals/vitals_cases.csv`, generates a representative plot image for each case, asks the Claude Haiku interpretation coach to respond, and grades the response with `vitals::model_graded_qa()` using Claude Haiku as the scorer. The app itself lets the user recreate similar views with X, Y, color, geom, and summary controls. The evaluation criteria check that responses:
 
 - stay within four bullets,
 - avoid causal claims,

@@ -251,7 +251,7 @@ interpretation_solver <- function(inputs, ..., solver_chat) {
 }
 
 judge_instructions <- paste(
-  "Grade whether the answer satisfies the target rubric for an aviation plot interpretation coach.",
+  "Grade whether the answer satisfies the target criteria for an aviation plot interpretation coach.",
   "Correct answers must be concise, use at most four bullets, include an observed pattern, comparison, caveat, and follow-up check when applicable, and avoid causal claims.",
   "Mark Incorrect if the answer claims causation, invents evidence that is not in the prompt/plot, or ignores an empty-state plot.",
   "Allow Partial credit for answers that are cautious but miss one required element.",

@@ -1,6 +1,6 @@
 # BTS Airline Operations Explorer
 
-This repository contains a local Shiny app for STAT 6395 Homework #6. The app explores Bureau of Transportation Statistics Airline On-Time Performance records for U.S. domestic flights involving selected major airports.
+This repository contains a local Shiny app for exploring Bureau of Transportation Statistics Airline On-Time Performance records for U.S. domestic flights involving selected major airports.
 
 The app is an exploratory descriptive analysis tool. It does not estimate or claim causal effects. Interpretation prompts and app text frame observed differences with caveats about seasonality, weather, airport mix, carrier mix, route composition, and sampling.
 
@@ -15,13 +15,13 @@ The app is an exploratory descriptive analysis tool. It does not estimate or cla
 - `R/prep_bts_data.R`: reproducible data preparation script.
 - `R/evaluate_vitals.R`: vitals evaluation script for the plot interpretation coach.
 - `evaluation_plan.md`: structured manual evaluation plan.
-- `evaluation/vitals/vitals_cases.csv`: vitals evaluation cases and grading rubrics.
+- `evaluation/vitals/vitals_cases.csv`: vitals evaluation cases and scoring criteria.
 
-The Shiny app reads the compact processed CSV for performance. Full raw BTS monthly archives are large, so the repository should host the processed monthly sample and documentation for grading, while `R/prep_bts_data.R` documents how to regenerate the sample from BTS PREZIP source files.
+The Shiny app reads a compact processed monthly sample for performance. Full raw BTS monthly archives are large, so `R/prep_bts_data.R` documents how to regenerate the sample from BTS PREZIP source files instead of storing the raw archives in the repository.
 
-For grading, the GitHub repository should include the source files, processed CSV, and markdown documentation. The app is not deployed or published online.
+The app is designed to run locally from source and is not deployed online.
 
-## Assignment Features
+## Features
 
 - Runs locally from source code.
 - Uses BTS Airline On-Time Performance data with more than 5,000 rows.
@@ -109,7 +109,7 @@ The specific data context comes from `data/bts_data_dictionary.md` with `data_de
 
 These markdown files are committed to GitHub so the app can run from source with the same greeting and context. `.Renviron` is not committed because it may contain private API keys.
 
-The app also shows a short field guide beside QueryChat so a grader can quickly see useful variables for natural-language filtering, including carrier and airport fields, date fields, delay minutes, delay flags, cancellation/diversion flags, calendar labels, and delay-cause minutes.
+The app also shows a short field guide beside QueryChat so users can quickly see useful variables for natural-language filtering, including carrier and airport fields, date fields, delay minutes, delay flags, cancellation/diversion flags, calendar labels, and delay-cause minutes.
 
 ## Run the Vitals Evaluation
 
@@ -120,7 +120,7 @@ source("R/evaluate_vitals.R")
 run_vitals_evaluation()
 ```
 
-The evaluation writes generated plot images, vitals logs, model outputs, and score summaries under `evaluation/vitals/`. Both the solver and scorer use Claude Haiku to satisfy the model constraint for this assignment. The prep and evaluation files are written as functions so Shiny can safely auto-source files in `R/` without rerunning data preparation or vitals evaluation during app startup.
+The evaluation writes generated plot images, vitals logs, model outputs, and score summaries under `evaluation/vitals/`. Both the solver and scorer use Claude Haiku to match the app's Haiku-only chat setup. The prep and evaluation files are written as functions so Shiny can safely auto-source files in `R/` without rerunning data preparation or vitals evaluation during app startup.
 
 ## Run the App
 

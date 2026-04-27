@@ -11,7 +11,7 @@ The evaluation cases now target the general BTS Airline Operations Explorer work
 
 Files:
 
-- `vitals_eval_dataset.csv`: generated vitals dataset with prompts, plot paths, rubrics, and row counts.
+- `vitals_eval_dataset.csv`: generated vitals dataset with prompts, plot paths, scoring criteria, and row counts.
 - `vitals_samples.csv`: model responses and parsed vitals scores.
 - `vitals_scores.csv`: compact score output from `vitals::vitals_bind()`.
 - `vitals_score_counts.csv`: score count summary.

@@ -1,5 +1,4 @@
 # BTS Airline Operations Explorer
-# STAT 6395 Homework #6
 #
 # This local Shiny app supports exploratory analysis of BTS Airline On-Time
 # Performance records. It lets users filter flights in natural language,
@@ -107,8 +106,7 @@ if (length(missing_cause_cols) > 0) {
 
 prepare_app_data <- function(df) {
   # Recompute derived variables here so the app remains robust if the processed
-  # CSV is regenerated from raw BTS files with only the assignment-required
-  # source columns.
+  # CSV is regenerated from raw BTS files with only the core source columns.
   season_levels <- c("Winter", "Spring", "Summer", "Fall")
   time_levels <- c("Overnight", "Morning", "Afternoon", "Evening")
 
@@ -166,7 +164,7 @@ flights <- prepare_app_data(raw_flights)
 if (nrow(flights) < 5000) {
   startup_warnings <- c(
     startup_warnings,
-    paste("Processed data has only", nrow(flights), "rows; the assignment requires at least 5,000.")
+    paste("Processed data has only", nrow(flights), "rows; the app is intended for samples of at least 5,000 rows.")
   )
 }
 
@@ -177,10 +175,10 @@ if (!nzchar(Sys.getenv("ANTHROPIC_API_KEY"))) {
   )
 }
 
-# QueryChat rubric context:
+# QueryChat context:
 # - greeting.md addresses the custom greeting requirement.
 # - data/bts_data_dictionary.md and querychat_instructions.md address the
-#   specific context requirement.
+#   data-specific context used by QueryChat.
 # - Storing the greeting as a file follows the QueryChat docs and avoids
 #   regenerating greeting text for every app session.
 qc <- querychat::QueryChat$new(
