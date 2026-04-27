@@ -19,7 +19,7 @@ The app is an exploratory descriptive analysis tool. It does not estimate or cla
 
 The Shiny app reads a compact processed monthly sample for performance. Full raw BTS monthly archives are large, so `R/prep_bts_data.R` documents how to regenerate the sample from BTS PREZIP source files instead of storing the raw archives in the repository.
 
-The app is designed to run locally from source and is not deployed online.
+The app is designed to run locally from source. No hosted Shiny deployment is provided.
 
 ## Features
 
@@ -107,7 +107,7 @@ QueryChat loads the custom greeting from `greeting.md` with `greeting =`. The fi
 
 The specific data context comes from `data/bts_data_dictionary.md` with `data_description =`. Additional behavior instructions come from `querychat_instructions.md` with `extra_instructions =`.
 
-These markdown files are committed to GitHub so the app can run from source with the same greeting and context. `.Renviron` is not committed because it may contain private API keys.
+These markdown files are part of the repository so the app can run from source with the same greeting and context. `.Renviron` is excluded because it may contain private API keys.
 
 The app also shows a short field guide beside QueryChat so users can quickly see useful variables for natural-language filtering, including carrier and airport fields, date fields, delay minutes, delay flags, cancellation/diversion flags, calendar labels, and delay-cause minutes.
 
@@ -120,7 +120,9 @@ source("R/evaluate_vitals.R")
 run_vitals_evaluation()
 ```
 
-The evaluation writes generated plot images, vitals logs, model outputs, and score summaries under `evaluation/vitals/`. Both the solver and scorer use Claude Haiku to match the app's Haiku-only chat setup. The prep and evaluation files are written as functions so Shiny can safely auto-source files in `R/` without rerunning data preparation or vitals evaluation during app startup.
+The evaluation writes generated plot images, vitals logs, model outputs, and score summaries under `evaluation/vitals/`. These generated outputs are ignored by git because they include local paths, logs, and model responses; rerun the command above to recreate them. The latest local run scored all five cases as correct.
+
+Both the solver and scorer use Claude Haiku to match the app's Haiku-only chat setup. The prep and evaluation files are written as functions so Shiny can safely auto-source files in `R/` without rerunning data preparation or vitals evaluation during app startup.
 
 ## Run the App
 

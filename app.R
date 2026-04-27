@@ -918,7 +918,7 @@ ui <- page_navbar(
           tags$li("Try a zero-row filter and verify value boxes, plots, and chat stay friendly."),
           tags$li("Check that interpretation responses stay to four bullets and avoid causal language."),
           tags$li("Compare time periods, airports, carriers, and route subsets before interpreting differences."),
-          tags$li("Document any failures in evaluation_plan.md before submission.")
+          tags$li("Record any failures in evaluation_plan.md so evaluation notes stay with the project.")
         )
       )
     )
@@ -930,7 +930,7 @@ ui <- page_navbar(
       card_header("Project framing"),
       p("This app uses BTS Airline On-Time Performance data for local exploratory analysis of U.S. domestic flight operations."),
       p("The comparisons are descriptive. They should be read with caveats about seasonality, weather, airport mix, carrier mix, route composition, and sampling."),
-      p("The app is designed to run locally from source code and should not be published online.")
+      p("The app is designed for local use from source code; no hosted Shiny deployment is provided.")
     )
   )
 )

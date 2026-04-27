@@ -1,15 +1,23 @@
 # Vitals Evaluation Results
 
-This folder contains the outputs from running:
+This folder is the default output location for:
 
 ```r
 source("R/evaluate_vitals.R")
 run_vitals_evaluation()
 ```
 
-The evaluation cases now target the general BTS Airline Operations Explorer workflow: monthly trends, seasonal NAS delay minutes, carrier comparisons, zero-row handling, and route/time-of-day heatmaps. Re-run the script after regenerating the 2023-2025 processed dataset so the saved result CSVs reflect the current app narrative.
+The evaluation cases target the BTS Airline Operations Explorer workflow: monthly trends, seasonal NAS delay minutes, carrier comparisons, zero-row handling, and route/time-of-day heatmaps.
 
-Files:
+The latest local vitals run completed all five cases successfully:
+
+- Correct: 5
+- Partial: 0
+- Incorrect: 0
+
+Generated result files are ignored by git because they include local paths, logs, plots, and model outputs. Re-run the evaluation command above to recreate them on another machine.
+
+Generated files:
 
 - `vitals_eval_dataset.csv`: generated vitals dataset with prompts, plot paths, scoring criteria, and row counts.
 - `vitals_samples.csv`: model responses and parsed vitals scores.
