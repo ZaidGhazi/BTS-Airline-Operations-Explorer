@@ -775,7 +775,19 @@ app_css <- "
   border-radius: 4px;
   padding: 0.05rem 0.25rem;
 }
-.querychat-shell { height: 640px; overflow: hidden; }
+.querychat-shell {
+  height: 980px;
+  overflow: hidden;
+}
+.querychat-shell h1 {
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  line-height: 1.12;
+}
+.querychat-shell p,
+.querychat-shell li {
+  font-size: 1rem;
+  line-height: 1.45;
+}
 .coach-shell { height: 560px; overflow: hidden; }
 .step-card { min-height: 760px; }
 .plot-controls {
@@ -838,9 +850,10 @@ app_css <- "
   .analysis-grid { grid-template-columns: 1fr; }
   .metrics-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .field-guide-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .querychat-shell { height: 860px; }
 }
 @media (max-width: 760px) {
-  .querychat-shell,
+  .querychat-shell { height: 760px; }
   .coach-shell { height: 520px; }
   .step-card { min-height: auto; }
   .plot-controls { grid-template-columns: 1fr; }
