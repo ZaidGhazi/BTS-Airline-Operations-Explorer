@@ -127,16 +127,6 @@ downloaded_fallback_files <- vapply(
   logical(1)
 )
 
-if (any(downloaded_fallback_files)) {
-  startup_warnings <- c(
-    startup_warnings,
-    paste(
-      "Downloaded missing companion file(s) from GitHub:",
-      paste(names(downloaded_fallback_files)[downloaded_fallback_files], collapse = ", ")
-    )
-  )
-}
-
 querychat_context_paths <- c(greeting_path, dictionary_path, querychat_instructions_path)
 missing_context_paths <- querychat_context_paths[!file.exists(querychat_context_paths)]
 if (length(missing_context_paths) > 0) {
